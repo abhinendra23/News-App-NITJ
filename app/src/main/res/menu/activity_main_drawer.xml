@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/articles"
+            android:orderInCategory="100"
+            android:icon="@drawable/ic_assignment_black_24dp"
+
+            android:title="Articles" />
+        <item
+            android:id="@+id/circulars"
+            android:icon="@drawable/ic_stars_black_24dp"
+            android:title="Circulars" />
+        <item
+            android:id="@+id/events"
+            android:icon="@drawable/ic_insert_invitation_black_24dp"
+            android:title="Events" />
+        <item
+            android:id="@+id/placements"
+            android:icon="@drawable/ic_business_center_black_24dp"
+            android:title="Placements" />
+        <item
+            android:id="@+id/societies"
+            android:icon="@drawable/ic_group_black_24dp"
+            android:title="Societies" />
+
+        <item
+            android:id="@+id/submit_aricles"
+            android:icon="@drawable/ic_create_black_24dp"
+            android:title="Submit Your Articles" />
+
+
+        <item
+            android:id="@+id/feedback"
+            android:icon="@drawable/ic_feedback_black_24dp"
+            android:title="Feedback" />
+
+
+        <item
+            android:id="@+id/profile_account"
+            android:icon="@drawable/ic_account_circle_black_24dp"
+            android:title="Your Account" />
+    </group>
+
+
+
+</menu>
