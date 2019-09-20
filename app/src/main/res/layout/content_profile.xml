@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ProfileActivity"
+    tools:showIn="@layout/activity_profile">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+
+        <TextView
+            style="@style/headerText"
+            android:text="Account Info"
+            android:layout_marginBottom="20dp"/>
+
+        <RelativeLayout style="@style/profileDetailsLayout">
+            <ImageView
+                android:id="@+id/nameImageView"
+                android:src="@drawable/ic_name"
+                style="@style/profileDetailsImage" />
+
+            <TextView
+                android:id="@+id/nameTextView"
+                android:text="Name"
+                android:layout_toRightOf="@id/nameImageView"
+                style="@style/profileDetailsTextMain" />
+
+            <TextView
+                android:id="@+id/User_name"
+                style="@style/profileDetailsMiniText"
+                android:layout_toRightOf="@id/nameImageView"
+                android:text="Anonymous" />
+
+            <ImageView
+                android:id="@+id/ChangeName"
+                style="@style/profileDetailsImage"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="-7dp"
+                android:src="@drawable/edit_icon" />
+        </RelativeLayout>
+
+
+        <View style="@style/proifleDetailsView" />
+        <RelativeLayout style="@style/profileDetailsLayout">
+            <ImageView
+                android:id="@+id/emailImageView"
+                android:src="@drawable/ic_email"
+                style="@style/profileDetailsImage" />
+
+            <TextView
+                android:text="Email"
+                android:layout_toRightOf="@id/emailImageView"
+                style="@style/profileDetailsTextMain" />
+
+            <TextView
+                android:id="@+id/User_email"
+                style="@style/profileDetailsMiniText"
+                android:layout_toRightOf="@id/emailImageView"
+                android:text="anonymous@mail.com" />
+
+        </RelativeLayout>
+
+
+
+        <View style="@style/proifleDetailsView" />
+        <RelativeLayout style="@style/profileDetailsLayout">
+            <ImageView
+                android:id="@+id/passwordImageView"
+                android:src="@drawable/password_icon"
+                style="@style/profileDetailsImage" />
+
+            <TextView
+                android:text="Password"
+                android:layout_toRightOf="@id/passwordImageView"
+                style="@style/profileDetailsTextMain" />
+
+            <TextView
+                android:id="@+id/User_password"
+                style="@style/profileDetailsTextMain"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="17dp"
+                android:layout_marginLeft="17dp"
+                android:layout_marginBottom="4dp"
+                android:layout_toEndOf="@+id/passwordImageView"
+                android:layout_toRightOf="@+id/passwordImageView"
+                android:text="********" />
+            <ImageView
+                android:id="@+id/ChangePassword"
+                style="@style/profileDetailsImage"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="-7dp"
+                android:src="@drawable/edit_icon" />
+
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="20dp"
+            android:background="@color/profileBackground">
+
+
+            <TextView
+                android:id="@+id/SignOut"
+                style="@style/signoutbuttonstyle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="SIGN OUT" />
+        </RelativeLayout>
+
+        <View style="@style/proifleDetailsView" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

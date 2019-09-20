@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "928869257945",
+    "firebase_url": "https://campusnewsletter-d9e2d.firebaseio.com",
+    "project_id": "campusnewsletter-d9e2d",
+    "storage_bucket": "campusnewsletter-d9e2d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:928869257945:android:2540a2b3f15f2adf50e4c8",
+        "android_client_info": {
+          "package_name": "com.example.finalproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "928869257945-vom8v8j3va1c02an3124tn9fmnnehap4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.finalproject",
+            "certificate_hash": "121ee9f9f3ae2e39ae0d1bbc17fc69ee6c89cd4e"
+          }
+        },
+        {
+          "client_id": "928869257945-pbbnpgck7b1aeuonhitk8js1nt0e0rqq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-Ja1ndemb6FZ_OTtnzXl-hlIE9bpzWqE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "928869257945-pbbnpgck7b1aeuonhitk8js1nt0e0rqq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
