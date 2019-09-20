@@ -202,6 +202,7 @@ public class ProfileActivity extends AppCompatActivity {
        // setSupportActionBar(toolbar);
 
         progressBar = new ProgressDialog(this);
+        progressBar.setCancelable(false);
 
 
         auth = FirebaseAuth.getInstance();
@@ -227,6 +228,8 @@ public class ProfileActivity extends AppCompatActivity {
         User_email = (TextView)findViewById(R.id.User_email);
         User_password = (TextView)findViewById(R.id.User_password);
         SignOut = (TextView)findViewById(R.id.SignOut);
+
+
 
 
         databaseReference.addValueEventListener(new ValueEventListener() {

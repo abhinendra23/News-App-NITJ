@@ -2,6 +2,7 @@ package com.example.finalproject;
 
 
 import android.content.Context;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +11,12 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
-//import android.support.v7.widget.RecyclerView;
 
-
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
+public class ProductAdapter extends RecyclerView.Adapter {
     //this context we will use to inflate the layout
     private Context mCtx;
 
@@ -29,25 +30,54 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     @Override
-    public ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //inflating and returning our view holder
-        LayoutInflater inflater = LayoutInflater.from(mCtx);
-        View view = inflater.inflate(R.layout.list_layout, null);
-        return new ProductViewHolder(view);
+        //LayoutInflater inflater = LayoutInflater.from(mCtx);
+        //View view = inflater.inflate(R.layout.imageview, null);
+        //return new ProductViewHolder(view);
+        View view;
+        if(viewType==Product.TEXT_TYPE) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.textonly, parent, false);
+            return new TextTypeViewHolder(view);
+        }
+        else
+        {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.imageview, parent, false);
+            return new ImageTypeViewHolder(view);
+        }
+    }
+    public int getItemViewType(int position) {
+
+        switch (productList.get(position).getType()) {
+            case 0:
+                return Product.TEXT_TYPE;
+            case 1:
+                return Product.IMAGE_TYPE;
+            default:
+                return -1;
+        }
     }
 
     @Override
-    public void onBindViewHolder(ProductViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         //getting the product of the specified position
         Product product = productList.get(position);
 
-        //binding the data with the viewholder views
-        holder.textViewTitle.setText(product.getTitle());
-        holder.textViewShortDesc.setText(product.getShortdesc());
-        holder.textViewRating.setText(String.valueOf(product.getRating()));
-        holder.textViewPrice.setText(String.valueOf(product.getPrice()));
+        if(product!=null) {
+            switch (product.getType()) {
+                case Product.TEXT_TYPE:
+                    ((TextTypeViewHolder) holder).textViewTitle.setText(product.getTitle());
+                    ((TextTypeViewHolder) holder).textViewShortDesc.setText(product.getShortdesc());
 
-        holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(product.getImage()));
+                    break;
+                case Product.IMAGE_TYPE:
+                    ((ImageTypeViewHolder) holder).textViewTitle.setText(product.getTitle());
+                    ((ImageTypeViewHolder) holder).textViewShortDesc.setText(product.getShortdesc());
+
+
+                    Picasso.get().load(product.getUrl()).into(((ImageTypeViewHolder) holder).imageView);
+            }
+        }
 
     }
 
@@ -58,19 +88,33 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
 
-    class ProductViewHolder extends RecyclerView.ViewHolder {
+    class ImageTypeViewHolder extends RecyclerView.ViewHolder {
 
         TextView textViewTitle, textViewShortDesc, textViewRating, textViewPrice;
         ImageView imageView;
 
-        public ProductViewHolder(View itemView) {
+        public ImageTypeViewHolder(View itemView) {
             super(itemView);
 
+            //textType = itemView.findViewById(R.id.textViewType);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             textViewShortDesc = itemView.findViewById(R.id.textViewShortDesc);
-            textViewRating = itemView.findViewById(R.id.textViewRating);
-            textViewPrice = itemView.findViewById(R.id.textViewPrice);
+
             imageView = itemView.findViewById(R.id.imageView);
+        }
+    }
+    class TextTypeViewHolder extends RecyclerView.ViewHolder {
+
+        TextView textViewTitle, textViewShortDesc, textViewRating, textViewPrice;
+
+
+        public TextTypeViewHolder(View itemView) {
+            super(itemView);
+
+            //textType = itemView.findViewById(R.id.textViewType);
+            textViewTitle = itemView.findViewById(R.id.textViewTitle);
+            textViewShortDesc = itemView.findViewById(R.id.textViewShortDesc);
+
         }
     }
 }

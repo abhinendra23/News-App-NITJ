@@ -24,6 +24,14 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,12 +44,20 @@ public class HomePageActivity extends AppCompatActivity
 
     //the recyclerview
     RecyclerView recyclerView;
+    DatabaseReference databaseReference;
+    StorageReference storageReference;
+    FirebaseAuth auth;
+    FirebaseUser user;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Post").child(auth.getCurrentUser().getUid());
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -85,43 +101,47 @@ public class HomePageActivity extends AppCompatActivity
         //initializing the productlist
         productList = new ArrayList<>();
 
+        ArrayList<PostInfo> list = new ArrayList<>();
+
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot postSnapshot: dataSnapshot.getChildren())
+                {
+                    PostInfo post = postSnapshot.getValue(PostInfo.class);
+                    Toast.makeText(HomePageActivity.this, "yes doing it right", Toast.LENGTH_SHORT).show();
+                    Log.i("ankit",post.title+"    "+post.description+"    "+post.image_url);
+
+                    Product obj = new Product(Product.IMAGE_TYPE,post.title,post.description,post.image_url);
+
+                    Log.i("ankit",obj.getTitle()+"    "+obj.getShortdesc()+"    "+obj.getUrl());
+                    productList.add(obj);
+                    System.out.println("size: " + productList.size());
+
+                }
+
+                ProductAdapter adapter = new ProductAdapter(HomePageActivity.this, productList);
+
+                //setting adapter to recyclerview
+
+
+                recyclerView.setAdapter(adapter);
+           }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
         Log.i("check", "pass3");
         //adding some items to our list
-        productList.add(
-                new Product(
-                        1,
-                        "Apple MacBook Air Core i5 5th Gen - (8 GB/128 GB SSD/Mac OS Sierra)",
-                        "13.3 inch, Silver, 1.35 kg",
-                        4.3,
-                        60000,
-                        R.drawable.macbook));
 
-        productList.add(
-                new Product(
-                        1,
-                        "Dell Inspiron 7000 Core i5 7th Gen - (8 GB/1 TB HDD/Windows 10 Home)",
-                        "14 inch, Gray, 1.659 kg",
-                        4.3,
-                        60000,
-                        R.drawable.dellinspiron));
-
-        productList.add(
-                new Product(
-                        1,
-                        "Microsoft Surface Pro 4 Core m3 6th Gen - (4 GB/128 GB SSD/Windows 10)",
-                        "13.3 inch, Silver, 1.35 kg",
-                        4.3,
-                        60000,
-                        R.drawable.surface));
 
         //creating recyclerview adapter
         Log.i("check", "pass4");
-        ProductAdapter adapter = new ProductAdapter(this, productList);
+//        Log.i("check",productList.get(0).getUrl());
 
-        //setting adapter to recyclerview
-
-
-        recyclerView.setAdapter(adapter);
         Log.i("check", "pass5");
     }
 

@@ -1,40 +1,42 @@
 package com.example.finalproject;
 
 public class Product {
-    private int id;
-    private String title;
-    private String shortdesc;
-    private double rating;
-    private double price;
+    public static final int TEXT_TYPE=0;
+    public static final int IMAGE_TYPE=1;
+    private int type;
+    //private int id;
+    private String title,url;
+    private String desc;
+    //private double rating;
+    //private double price;
     private int image;
 
-    public Product(int id, String title, String shortdesc, double rating, double price, int image) {
-        this.id = id;
+
+    public Product(int type, String title, String desc, String url) {
+        this.type=type;
+
         this.title = title;
-        this.shortdesc = shortdesc;
-        this.rating = rating;
-        this.price = price;
-        this.image = image;
+        this.desc = desc;
+
+        this.url = url;
     }
 
-    public int getId() {
-        return id;
+    public int getType() {
+        return type;
     }
+    public String getUrl() {
+        return url;
+    }
+
 
     public String getTitle() {
         return title;
     }
     public String getShortdesc() {
-        return shortdesc;
+        return desc;
     }
 
-    public double getRating() {
-        return rating;
-    }
 
-    public double getPrice() {
-        return price;
-    }
 
     public int getImage() {
         return image;

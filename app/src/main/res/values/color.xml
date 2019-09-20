@@ -13,4 +13,5 @@
     <color name="profileEditTextColor">#707070</color>
     <color name="transparent">#ffffff00</color>
     <color name="darkgray">	#70707F</color>
+    <color name="grey_ultra_light">	#EEEEEE</color>
 </resources>

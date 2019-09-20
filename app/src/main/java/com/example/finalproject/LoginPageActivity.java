@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -71,7 +72,7 @@ public class LoginPageActivity extends AppCompatActivity {
         if(currentUser!=null && currentUser.isEmailVerified())
         {
             Log.i("hello",currentUser.getEmail().toString());
-            Intent i = new Intent(getApplicationContext(),ProfileActivity.class);
+            Intent i = new Intent(getApplicationContext(),HomePageActivity.class);
             finish();
             Toast.makeText(getApplicationContext(), "Welcome " ,Toast.LENGTH_SHORT).show();
 
@@ -85,6 +86,9 @@ public class LoginPageActivity extends AppCompatActivity {
         here = (TextView)findViewById(R.id.RegisterHere);
         progress=new ProgressDialog(this);
         progress.setMessage("Logging in...");
+        progress.setCancelable(false);
+
+
 
         here.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +113,7 @@ public class LoginPageActivity extends AppCompatActivity {
                 else
                 {
                     progress.show();
+
                     auth.signInWithEmailAndPassword(id.getText().toString(),pass.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -135,7 +140,7 @@ public class LoginPageActivity extends AppCompatActivity {
                                                     if(task.isSuccessful() )
                                                     {
 
-                                                        Intent i = new Intent(getApplicationContext(),ProfileActivity.class);
+                                                        Intent i = new Intent(getApplicationContext(),HomePageActivity.class);
                                                         finish();
                                                         progress.dismiss();
                                                         Toast.makeText(getApplicationContext(), "Welcome " ,Toast.LENGTH_SHORT).show();
@@ -153,8 +158,9 @@ public class LoginPageActivity extends AppCompatActivity {
                                         }
                                         else
                                         {
-                                            Intent i = new Intent(getApplicationContext(),ProfileActivity.class);
+                                            Intent i = new Intent(getApplicationContext(),HomePageActivity.class);
                                             finish();
+                                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                             progress.dismiss();
                                             Toast.makeText(getApplicationContext(), "Welcome " ,Toast.LENGTH_SHORT).show();
 
@@ -260,7 +266,7 @@ public class LoginPageActivity extends AppCompatActivity {
                             //  Log.d(TAG, "signInWithCredential:success");
 
                             FirebaseUser user = auth.getCurrentUser();
-                            Intent i = new Intent(getApplicationContext(),ProfileActivity.class);
+                            Intent i = new Intent(getApplicationContext(),SubmitPostActivity.class);
 
                             progress.dismiss();
                             Toast.makeText(LoginPageActivity.this, "logged in Successfully", Toast.LENGTH_SHORT).show();
