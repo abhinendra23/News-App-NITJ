@@ -25,11 +25,14 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="3dp">
 
+
+
+
         <EditText
             android:id="@+id/RegisterNameInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="25dp"
             android:hint="Email id"
             android:inputType="textPersonName"
             android:textColor="@android:color/black"
@@ -43,13 +46,12 @@
             android:id="@+id/RegisterPasswordInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="35dp"
             android:hint="Password"
             android:inputType="textPassword"
             android:textColor="@android:color/black"
             android:textColorHint="@android:color/black"
             android:textSize="20sp" />
-
 
         <Button
             android:id="@+id/LoginButton"

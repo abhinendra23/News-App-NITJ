@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -30,8 +32,10 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
         email = (EditText)findViewById(R.id.RegisterNameInput);
         password = (EditText)findViewById(R.id.RegisterPasswordInput);
+
         auth = FirebaseAuth.getInstance();
         Register = (Button)findViewById(R.id.LoginButton);
 
@@ -44,6 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String id = email.getText().toString();
                 String pass = password.getText().toString();
 
+
                 if( pass.equals(""))
                 {
                     Toast.makeText(getApplicationContext(), "Email or password can't be empty", Toast.LENGTH_SHORT).show();
@@ -54,18 +59,25 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 else {
 
-
+                    Log.i("email","working1");
                     auth.createUserWithEmailAndPassword(id, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
 
                                 user = auth.getCurrentUser();
+                                Log.i("email","working3");
+
+
+                                Log.i("email","working4");
+
                                 if (user != null) {
+
                                     user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
+                                                Log.i("email","working5");
                                                 Toast.makeText(RegisterActivity.this, "Email sent", Toast.LENGTH_SHORT).show();
                                                 Toast.makeText(RegisterActivity.this, "Please Verify Your email address", Toast.LENGTH_SHORT).show();
                                             }

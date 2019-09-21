@@ -69,15 +69,7 @@ public class LoginPageActivity extends AppCompatActivity {
 
 
 
-        if(currentUser!=null && currentUser.isEmailVerified())
-        {
-            Log.i("hello",currentUser.getEmail().toString());
-            Intent i = new Intent(getApplicationContext(),HomePageActivity.class);
-            finish();
-            Toast.makeText(getApplicationContext(), "Welcome " ,Toast.LENGTH_SHORT).show();
 
-            startActivity(i);
-        }
         id = (EditText)findViewById(R.id.LoginNameInput);
         pass = (EditText)findViewById(R.id.LoginPasswordInput);
         ForgotPassword = (TextView) findViewById(R.id.ForgotPassword);
@@ -89,6 +81,16 @@ public class LoginPageActivity extends AppCompatActivity {
         progress.setCancelable(false);
 
 
+        if(currentUser!=null && currentUser.isEmailVerified())
+        {
+            Log.i("hello",currentUser.getEmail().toString());
+            Intent i = new Intent(getApplicationContext(),HomePageActivity.class);
+
+            Toast.makeText(getApplicationContext(), "Welcome " ,Toast.LENGTH_SHORT).show();
+
+            startActivity(i);
+            finish();
+        }
 
         here.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,10 +124,11 @@ public class LoginPageActivity extends AppCompatActivity {
                             if(task.isSuccessful() && user.isEmailVerified() )
                             {
 
-                                Toast.makeText(getApplicationContext(), "Welcome1 " ,Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(getApplicationContext(), "Welcome1 " ,Toast.LENGTH_SHORT).show();
+                                String name = "xyz";
                                 String id = user.getEmail();
                                 String password =pass.getText().toString();
-                                final UserInfo obj = new UserInfo("sudhanshu",password,id);
+                                final UserInfo obj = new UserInfo(name,password,id);
 
                                 dataRefer = rootReference.child("UserInfo");
 
@@ -140,7 +143,7 @@ public class LoginPageActivity extends AppCompatActivity {
                                                     if(task.isSuccessful() )
                                                     {
 
-                                                        Intent i = new Intent(getApplicationContext(),HomePageActivity.class);
+                                                        Intent i = new Intent(getApplicationContext(),SetNameActivity.class);
                                                         finish();
                                                         progress.dismiss();
                                                         Toast.makeText(getApplicationContext(), "Welcome " ,Toast.LENGTH_SHORT).show();
@@ -160,7 +163,7 @@ public class LoginPageActivity extends AppCompatActivity {
                                         {
                                             Intent i = new Intent(getApplicationContext(),HomePageActivity.class);
                                             finish();
-                                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                                            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                             progress.dismiss();
                                             Toast.makeText(getApplicationContext(), "Welcome " ,Toast.LENGTH_SHORT).show();
 
@@ -191,7 +194,7 @@ public class LoginPageActivity extends AppCompatActivity {
                                 progress.dismiss();
                                 Toast.makeText(getApplicationContext(), "Please Verify your Email first", Toast.LENGTH_SHORT).show();
                             }
-                            Toast.makeText(getApplicationContext(), "Welcome 2" ,Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getApplicationContext(), "Welcome 2" ,Toast.LENGTH_SHORT).show();
 
                         }
                     });
@@ -266,7 +269,7 @@ public class LoginPageActivity extends AppCompatActivity {
                             //  Log.d(TAG, "signInWithCredential:success");
 
                             FirebaseUser user = auth.getCurrentUser();
-                            Intent i = new Intent(getApplicationContext(),SubmitPostActivity.class);
+                            Intent i = new Intent(getApplicationContext(),HomePageActivity.class);
 
                             progress.dismiss();
                             Toast.makeText(LoginPageActivity.this, "logged in Successfully", Toast.LENGTH_SHORT).show();

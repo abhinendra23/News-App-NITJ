@@ -122,6 +122,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:visibility="invisible"
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -134,6 +135,7 @@
             tools:layout_editor_absoluteY="500dp" />
 
         <com.google.android.gms.common.SignInButton
+            android:visibility="invisible"
             android:id="@+id/signInButton"
             android:layout_width="150dp"
             android:layout_height="wrap_content"

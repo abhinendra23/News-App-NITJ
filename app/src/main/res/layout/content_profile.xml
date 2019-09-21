@@ -21,25 +21,25 @@
             android:text="Account Info"
             android:layout_marginBottom="20dp"/>
 
-        <RelativeLayout style="@style/profileDetailsLayout">
-            <ImageView
-                android:id="@+id/nameImageView"
-                android:src="@drawable/ic_name"
-                style="@style/profileDetailsImage" />
+        <RelativeLayout
+            style="@style/profileDetailsLayout"
+            android:layout_height="57dp">
 
-            <TextView
-                android:id="@+id/nameTextView"
-                android:text="Name"
-                android:layout_toRightOf="@id/nameImageView"
-                style="@style/profileDetailsTextMain" />
-
-            <TextView
+            <EditText
                 android:id="@+id/User_name"
                 style="@style/profileDetailsMiniText"
                 android:layout_toRightOf="@id/nameImageView"
+                android:focusable="false"
+                android:inputType="none"
                 android:text="Anonymous" />
 
             <ImageView
+                android:id="@+id/nameImageView"
+                style="@style/profileDetailsImage"
+                android:src="@drawable/ic_name" />
+
+            <ImageView
+
                 android:id="@+id/ChangeName"
                 style="@style/profileDetailsImage"
                 android:layout_alignParentEnd="true"
@@ -48,7 +48,26 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="-7dp"
-                android:src="@drawable/edit_icon" />
+                android:src="@drawable/ic_edit_black_24dp" />
+
+            <ImageView
+                android:id="@+id/SaveName"
+                style="@style/profileDetailsImage"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="-7dp"
+
+                android:visibility="invisible"
+                android:src="@drawable/ic_done_black_24dp" />
+
+            <TextView
+                android:id="@+id/nameTextView"
+                style="@style/profileDetailsTextMain"
+                android:layout_toRightOf="@id/nameImageView"
+                android:text="Name" />
         </RelativeLayout>
 
 
@@ -65,37 +84,36 @@
                 style="@style/profileDetailsTextMain" />
 
             <TextView
-                android:id="@+id/User_email"
-                style="@style/profileDetailsMiniText"
+                android:text="anonymous@mail.com"
                 android:layout_toRightOf="@id/emailImageView"
-                android:text="anonymous@mail.com" />
+                android:id="@+id/User_email"
+                style="@style/profileDetailsMiniText" />
 
         </RelativeLayout>
 
 
 
         <View style="@style/proifleDetailsView" />
-        <RelativeLayout style="@style/profileDetailsLayout">
-            <ImageView
-                android:id="@+id/passwordImageView"
-                android:src="@drawable/password_icon"
-                style="@style/profileDetailsImage" />
 
-            <TextView
-                android:text="Password"
-                android:layout_toRightOf="@id/passwordImageView"
-                style="@style/profileDetailsTextMain" />
+        <RelativeLayout
+            style="@style/profileDetailsLayout"
+            android:layout_height="55dp">
 
-            <TextView
-                android:id="@+id/User_password"
-                style="@style/profileDetailsTextMain"
+            <EditText
+                android:id="@+id/User_Password"
                 android:layout_alignParentBottom="true"
-                android:layout_marginStart="17dp"
-                android:layout_marginLeft="17dp"
-                android:layout_marginBottom="4dp"
                 android:layout_toEndOf="@+id/passwordImageView"
                 android:layout_toRightOf="@+id/passwordImageView"
+                android:focusable="false"
+                android:inputType="none"
+                style="@style/profileDetailsMiniText"
                 android:text="********" />
+
+            <ImageView
+                android:id="@+id/passwordImageView"
+                style="@style/profileDetailsImage"
+                android:src="@drawable/password_icon" />
+
             <ImageView
                 android:id="@+id/ChangePassword"
                 style="@style/profileDetailsImage"
@@ -105,10 +123,30 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="-7dp"
-                android:src="@drawable/edit_icon" />
+
+                android:src="@drawable/ic_edit_black_24dp" />
+
+            <ImageView
+                android:id="@+id/SavePasssword"
+                style="@style/profileDetailsImage"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="-7dp"
+
+                android:src="@drawable/ic_done_black_24dp"
+                android:visibility="invisible"/>
+
+            <TextView
+                style="@style/profileDetailsTextMain"
+                android:layout_toRightOf="@id/passwordImageView"
+                android:text="Password" />
 
 
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

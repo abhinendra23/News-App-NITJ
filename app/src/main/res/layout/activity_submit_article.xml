@@ -4,13 +4,53 @@
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent" android:layout_width="match_parent">
+    android:layout_height="match_parent" android:layout_width="match_parent"
+    android:background="@drawable/background_login_page">
 
-    <RelativeLayout tools:context=".SubmitPostActivity" android:layout_height="match_parent" android:layout_width="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        tools:context=".SubmitPostActivity">
 
-    <EditText android:layout_height="70dp" android:layout_width="match_parent" android:textSize="18dp" android:textColorHint="@android:color/black" android:textColor="@android:color/black" android:padding="10dp" android:inputType="text|textMultiLine" android:hint="Title" android:background="@drawable/borders" android:layout_marginTop="30dp" android:id="@+id/PostTitle"/>
+        <EditText
+            android:id="@+id/PostTitle"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginTop="30dp"
+            android:alpha="0.6"
+            android:background="@drawable/borders"
+            android:hint="Title"
+            android:inputType="text|textMultiLine"
+            android:isScrollContainer="true"
+            android:padding="10dp"
+            android:scrollbars="vertical"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black"
+            android:textSize="18dp" />
 
-    <EditText android:layout_height="317dp" android:layout_width="match_parent" android:textSize="15dp" android:textColorHint="@android:color/black" android:textColor="@android:color/black" android:inputType="text|textMultiLine" android:hint="Description" android:background="@drawable/borders" android:layout_marginTop="15dp" android:id="@+id/PostDescription" android:layout_marginEnd="0dp" android:layout_alignEnd="@+id/PostTitle" android:layout_below="@+id/PostTitle"/>
+        <EditText
+            android:id="@+id/PostDescription"
+            android:layout_width="match_parent"
+            android:layout_height="317dp"
+            android:layout_below="@+id/PostTitle"
+            android:layout_alignEnd="@+id/PostTitle"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="0dp"
+            android:alpha="0.5"
+            android:background="@drawable/borders"
+            android:gravity="start"
+            android:hint="Description"
+            android:inputType="text|textMultiLine"
+            android:isScrollContainer="true"
+            android:overScrollMode="always"
+            android:padding="10dp"
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbars="vertical"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black"
+            android:textSize="15dp" />
+
 
         <Button
             android:id="@+id/ImageButton"
@@ -18,11 +58,12 @@
             android:layout_height="59dp"
             android:layout_below="@+id/PostDescription"
             android:layout_alignEnd="@+id/PostDescription"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="163dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginEnd="158dp"
             android:onClick="set_image"
             android:text="Add Photo"
-            android:textSize="15dp" />
+            android:textSize="15dp"
+            />
 
         <Button
             android:id="@+id/Submit"
@@ -34,8 +75,11 @@
             android:layout_marginEnd="109dp"
             android:layout_marginBottom="483dp"
             android:onClick="set_image_util"
+
             android:text="Submit"
             android:textSize="18dp" />
+
+
 
         <ImageView
             android:id="@+id/Image"
@@ -46,6 +90,10 @@
             android:layout_marginTop="-400dp"
             android:layout_marginEnd="135dp"
             app:srcCompat="@drawable/background" />
+
+
+
+
 
     </RelativeLayout>
 

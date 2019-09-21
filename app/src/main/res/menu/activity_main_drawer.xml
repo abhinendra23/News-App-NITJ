@@ -29,9 +29,9 @@
             android:title="Societies" />
 
         <item
-            android:id="@+id/submit_aricles"
+            android:id="@+id/submit_post"
             android:icon="@drawable/ic_create_black_24dp"
-            android:title="Submit Your Articles" />
+            android:title="Submit Your Post" />
 
 
         <item

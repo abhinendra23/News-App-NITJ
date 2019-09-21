@@ -36,38 +36,38 @@
                 android:id="@+id/linearLayout"
                 android:background="@drawable/profile_bk">
 
-                <ImageView
-                    android:id="@+id/User_ProfilePic"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:src="@drawable/usericon" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:id="@+id/User_ProfilePic"
+                        android:src="@drawable/usericon"
+                        android:layout_marginLeft="125dp"
+                        />
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:id="@+id/ChangeProfilePic"
+                            style="@style/profileDetailsImage"
+                            android:onClick="Change_profile_pic"
+                            android:layout_marginTop="90dp"
+                            android:src="@drawable/ic_camera_alt_black_24dp" />
 
-                <ImageView
-                    android:id="@+id/ChangeProfilePic"
-                    style="@style/profileDetailsImage"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="-7dp"
-                    android:src="@drawable/edit_icon" />
-
-                <ImageView
-                    android:id="@+id/SaveChanges"
-                    style="@style/profileDetailsImage"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="-7dp"
-                    android:alpha="0"
-                    android:onClick="change_profile_pic_util"
-                    android:src="@drawable/edit_icon" />
+                        <ImageView
+                            android:id="@+id/SaveChanges"
+                            style="@style/profileDetailsImage"
+                            android:onClick="change_profile_pic_util"
+                            android:visibility="invisible"
+                            android:layout_marginTop="90dp"
+                            android:src="@drawable/ic_done_black_24dp" />
+                    </RelativeLayout>
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/Name"
+                    android:id="@+id/Navigation_Name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Anonymous"

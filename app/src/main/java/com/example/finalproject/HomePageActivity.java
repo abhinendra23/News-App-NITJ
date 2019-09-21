@@ -5,19 +5,23 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.MenuItemCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Typeface;
+import android.graphics.Paint;
+import android.graphics.Shader;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,9 +36,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class HomePageActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -44,10 +51,20 @@ public class HomePageActivity extends AppCompatActivity
 
     //the recyclerview
     RecyclerView recyclerView;
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference, userReference;
     StorageReference storageReference;
     FirebaseAuth auth;
     FirebaseUser user;
+
+
+    TextView Navigation_Name, Navigation_email;
+    ImageView ProfilePic ;
+
+    public void OnClick(View view)
+    {
+        Intent i = new Intent(getApplicationContext(),ProfileActivity.class);
+        startActivity(i);
+    }
 
 
     @Override
@@ -55,9 +72,46 @@ public class HomePageActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
+
+
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Post").child(auth.getCurrentUser().getUid());
+        userReference = FirebaseDatabase.getInstance().getReference().child("UserInfo").child(user.getUid());
+
+        Navigation_Name = (TextView)findViewById(R.id.Navigation_Name);
+        Navigation_email = (TextView)findViewById(R.id.Navigation_email);
+        ProfilePic = (ImageView)findViewById(R.id.ProfilePic);
+
+//        userReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                Log.i("abhi",user.getEmail().toString());
+//                String email = dataSnapshot.child("email").getValue().toString();
+//                Log.i("abhi",user.getEmail().toString());
+//                Log.i("abhi",email);
+//
+//                Navigation_email.setText(email);
+//                Log.i("abhi",user.getEmail().toString());
+//                String name = dataSnapshot.child("name").getValue().toString();
+//                Log.i("abhi",user.getEmail().toString());
+//                Navigation_Name.setText(name);
+//                Log.i("abhi",user.getEmail().toString());
+//                String url = dataSnapshot.child("profile_pic_url").getValue().toString();
+//                Log.i("abhi",user.getEmail().toString());
+//
+//                Picasso.get().load(url).transform(new CircleTransform()).into(ProfilePic);
+//                Log.i("abhi",user.getEmail().toString());
+//
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -83,10 +137,48 @@ public class HomePageActivity extends AppCompatActivity
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Toast.makeText(HomePageActivity.this, "Ran", Toast.LENGTH_SHORT).show();
-                return false;
+                int id = item.getItemId();
+                if (id == R.id.articles) {
+                    // Handle the camera action
+//                    Log.i("kuch bhi","kuch bh");
+
+                }
+                else if (id == R.id.circulars) {
+
+                }
+                else if (id == R.id.events) {
+//                    Log.i("kuch bhi","kuch bh");
+                }
+                else if (id == R.id.placements) {
+
+
+                }
+                else if (id == R.id.societies) {
+
+                }
+                else if (id == R.id.submit_post) {
+
+                    Intent i = new Intent(getApplicationContext(),SubmitPostActivity.class);
+
+                    startActivity(i);
+
+                }
+                else if (id == R.id.feedback) {
+
+                }
+                else if (id == R.id.profile_account) {
+
+                    Intent i = new Intent(getApplicationContext(),ProfileActivity.class);
+                    startActivity(i);
+                }
+
+                DrawerLayout drawer = findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
             }
         });
         navigationView.getHeaderView(0).setBackgroundColor(Color.RED);
+        findViewById(R.id.Navigation_email);
 
 
         int a = 0;
@@ -187,7 +279,7 @@ public class HomePageActivity extends AppCompatActivity
 
         } else if (id == R.id.societies) {
 
-        } else if (id == R.id.submit_aricles) {
+        } else if (id == R.id.submit_post) {
 
         } else if (id == R.id.feedback) {
 

@@ -66,7 +66,7 @@ public class SubmitPostActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        progress.setMessage("Updating Profile Pic");
+       // progress.setMessage("Updating Profile Pic");
 
         if (requestCode == 12 && resultCode == RESULT_OK && data != null) {
 

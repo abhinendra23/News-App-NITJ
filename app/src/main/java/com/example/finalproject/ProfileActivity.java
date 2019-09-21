@@ -3,7 +3,6 @@ package com.example.finalproject;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -16,11 +15,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -84,8 +81,9 @@ class CircleTransform implements Transformation {
 public class ProfileActivity extends AppCompatActivity {
 
 
-    ImageView User_ProfilePic, ChangeProfilePic, ChangeName, ChangePassowrd, Savechanges;
-    TextView Name, Email, Back_to_Home, User_name, User_email, User_password, SignOut;
+    ImageView User_ProfilePic, ChangeProfilePic, ChangeName, ChangePassowrd, Savechanges,SaveName,SavePassword;
+    TextView Name, Email, Back_to_Home,  User_email, SignOut;
+    EditText User_name, User_password;
 
 
     DatabaseReference databaseReference;
@@ -118,6 +116,10 @@ public class ProfileActivity extends AppCompatActivity {
             imageUri = data.getData();
             Picasso.get().load(imageUri).transform(new CircleTransform()).into(User_ProfilePic);
             Savechanges.setAlpha(1.0f);
+            ImageView changephotobutton = findViewById(R.id.ChangeProfilePic);
+            ImageView setphotbutton = findViewById(R.id.SaveChanges);
+            setphotbutton.setVisibility(View.VISIBLE);
+            changephotobutton.setVisibility(View.INVISIBLE);
 
 
 
@@ -126,6 +128,8 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
         public void change_profile_pic_util(View view) {
+
+
             progressBar.show();
             final StorageReference imageRef = storageReference;
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -180,6 +184,10 @@ public class ProfileActivity extends AppCompatActivity {
 
                                     Picasso.get().load(imageUri).transform(new CircleTransform()).into(User_ProfilePic);
                                     Savechanges.setAlpha(0f);
+                                    ImageView changephotobutton = findViewById(R.id.ChangeProfilePic);
+                                    ImageView setphotbutton = findViewById(R.id.SaveChanges);
+                                    setphotbutton.setVisibility(View.INVISIBLE);
+                                    changephotobutton.setVisibility(View.VISIBLE);
 
                                 }
                             });
@@ -221,13 +229,15 @@ public class ProfileActivity extends AppCompatActivity {
         ChangePassowrd = (ImageView)findViewById(R.id.ChangePassword);
         Savechanges = (ImageView)findViewById(R.id.SaveChanges);
 
-        Name = (TextView)findViewById(R.id.Name);
+        Name = (TextView)findViewById(R.id.Navigation_Name);
         Email = (TextView)findViewById(R.id.Email);
         Back_to_Home = (TextView)findViewById(R.id.Back_to_Home);
-        User_name = (TextView)findViewById(R.id.User_name);
+        User_name = (EditText) findViewById(R.id.User_name);
         User_email = (TextView)findViewById(R.id.User_email);
-        User_password = (TextView)findViewById(R.id.User_password);
+        User_password = (EditText) findViewById(R.id.User_Password);
         SignOut = (TextView)findViewById(R.id.SignOut);
+        SaveName = (ImageView)findViewById(R.id.SaveName);
+        SavePassword = (ImageView)findViewById(R.id.SavePasssword);
 
 
 
@@ -237,6 +247,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 email = dataSnapshot.child("email").getValue().toString();
+
                 Email.setText(email);
                 User_email.setText(email);
                 url = dataSnapshot.child("profile_pic_url").getValue().toString();
@@ -288,6 +299,16 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                EditText editText = findViewById(R.id.User_name);
+                editText.setFocusableInTouchMode(true);
+                editText.setInputType(1);
+                ImageView editname = (ImageView) findViewById(R.id.ChangeName);
+                editname.setVisibility(View.INVISIBLE);
+                editText.setText("");
+                editText.setHint("Enter name");
+                ImageView setnamebutton = (ImageView) findViewById(R.id.SaveName);
+                setnamebutton.setVisibility(View.VISIBLE);
+
             }
         });
 
@@ -295,9 +316,47 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
+                EditText password = findViewById(R.id.User_Password);
+                password.setFocusableInTouchMode(true);
+                password.setInputType(1);
+                ImageView editpassword = (ImageView) findViewById(R.id.ChangePassword);
+                editpassword.setVisibility(View.INVISIBLE);
+                password.setText("");
+                password.setHint("Enter new password");
+                ImageView setpasswordbutton = (ImageView) findViewById(R.id.SavePasssword);
+                setpasswordbutton.setVisibility(View.VISIBLE);
             }
         });
+
+        SaveName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageView editname = (ImageView) findViewById(R.id.ChangeName);
+                editname.setVisibility(View.VISIBLE);
+                ImageView setnamebutton = (ImageView) findViewById(R.id.SaveName);
+                setnamebutton.setVisibility(View.INVISIBLE);
+                EditText editText = findViewById(R.id.User_name);
+                editText.setInputType(0);
+                editText.setFocusableInTouchMode(false);
+            }
+        });
+
+        SavePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ImageView editpassword = (ImageView) findViewById(R.id.ChangePassword);
+                editpassword.setVisibility(View.VISIBLE);
+                ImageView setpasswordbutton = (ImageView) findViewById(R.id.SavePasssword);
+                setpasswordbutton.setVisibility(View.INVISIBLE);
+                EditText password = findViewById(R.id.User_Password);
+                password.setInputType(0);
+                password.setText("********");
+                password.setFocusableInTouchMode(false);
+            }
+        });
+
+
 
 
     }
