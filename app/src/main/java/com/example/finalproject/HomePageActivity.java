@@ -1,6 +1,7 @@
 package com.example.finalproject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -30,6 +31,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -76,7 +78,7 @@ public class HomePageActivity extends AppCompatActivity
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Post").child(auth.getCurrentUser().getUid());
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Post").child("CodingClub");
         userReference = FirebaseDatabase.getInstance().getReference().child("UserInfo").child(user.getUid());
 
         Navigation_Name = (TextView)findViewById(R.id.Navigation_Name);
@@ -139,28 +141,63 @@ public class HomePageActivity extends AppCompatActivity
                 Toast.makeText(HomePageActivity.this, "Ran", Toast.LENGTH_SHORT).show();
                 int id = item.getItemId();
                 if (id == R.id.articles) {
-                    // Handle the camera action
-//                    Log.i("kuch bhi","kuch bh");
+
+                    Intent i = new Intent(getApplicationContext(),ArticleActivity.class);
+                    startActivity(i);
+
 
                 }
-                else if (id == R.id.circulars) {
 
-                }
-                else if (id == R.id.events) {
-//                    Log.i("kuch bhi","kuch bh");
-                }
+
                 else if (id == R.id.placements) {
+
+                    Intent i = new Intent(getApplicationContext(),PlacementActivity.class);
+                    startActivity(i);
+
 
 
                 }
                 else if (id == R.id.societies) {
 
+                    Intent i = new Intent(getApplicationContext(),ClubActivity.class);
+
+                    startActivity(i);
+
+
                 }
                 else if (id == R.id.submit_post) {
 
-                    Intent i = new Intent(getApplicationContext(),SubmitPostActivity.class);
+                    userReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String type = dataSnapshot.child("type").getValue().toString();
+                            Log.i("Usertype",type);
+                            if(type.equals("EndUser"))
+                            {
+                                Intent i = new Intent(getApplicationContext(),SubmitPostActivity.class);
+                                startActivity(i);
 
-                    startActivity(i);
+                            }
+                            else if(type.equals("ClubHead"))
+                            {
+                                Intent i = new Intent(getApplicationContext(),SubmitPostActivity.class);
+                                startActivity(i);
+
+                            }
+                            else
+                            {
+                                Intent i = new Intent(getApplicationContext(),PlacementInput.class);
+                                startActivity(i);
+
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
 
                 }
                 else if (id == R.id.feedback) {
@@ -183,48 +220,84 @@ public class HomePageActivity extends AppCompatActivity
 
         int a = 0;
 
+        productList = new ArrayList<>();
+
         Log.i("check", "pass1");
         recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         Log.i("check", "pass2");
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        final ProductAdapter adapter = new ProductAdapter(HomePageActivity.this, productList);
+        recyclerView.setAdapter(adapter);
+
 
 
         //initializing the productlist
-        productList = new ArrayList<>();
 
         ArrayList<PostInfo> list = new ArrayList<>();
+//        productList = new ArrayList<>();
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.orderByChild("timestamp").addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot postSnapshot: dataSnapshot.getChildren())
-                {
-                    PostInfo post = postSnapshot.getValue(PostInfo.class);
-                    Toast.makeText(HomePageActivity.this, "yes doing it right", Toast.LENGTH_SHORT).show();
-                    Log.i("ankit",post.title+"    "+post.description+"    "+post.image_url);
-
-                    Product obj = new Product(Product.IMAGE_TYPE,post.title,post.description,post.image_url);
-
-                    Log.i("ankit",obj.getTitle()+"    "+obj.getShortdesc()+"    "+obj.getUrl());
-                    productList.add(obj);
-                    System.out.println("size: " + productList.size());
-
-                }
-
-                ProductAdapter adapter = new ProductAdapter(HomePageActivity.this, productList);
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                PostInfo post = dataSnapshot.getValue(PostInfo.class);
+                Product obj = new Product(Product.IMAGE_TYPE,post.title,post.description,post.image_url);
+                productList.add(obj);
+                System.out.println("size: " + productList.size());
+                adapter.notifyDataSetChanged();
 
                 //setting adapter to recyclerview
 
 
-                recyclerView.setAdapter(adapter);
-           }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
+//        databaseReference.addValueEventListener(
+//                new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                productList.clear();
+//                for(DataSnapshot postSnapshot: dataSnapshot.getChildren())
+//                {
+//                    PostInfo post = postSnapshot.getValue(PostInfo.class);
+//                    Product obj = new Product(Product.IMAGE_TYPE,post.title,post.description,post.image_url);
+//                    productList.add(obj);
+//                    System.out.println("size: " + productList.size());
+//
+//                }
+//
+//                ProductAdapter adapter = new ProductAdapter(HomePageActivity.this, productList);
+//
+//                //setting adapter to recyclerview
+//
+//
+//                recyclerView.setAdapter(adapter);
+//           }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
 
         Log.i("check", "pass3");
         //adding some items to our list
@@ -268,16 +341,14 @@ public class HomePageActivity extends AppCompatActivity
 
         if (id == R.id.articles) {
             // Handle the camera action
-            Log.i("kuch bhi","kuch bh");
+            Log.i("kuch bhi", "kuch bh");
             Toast.makeText(this, "Kdkfalkj", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.circulars) {
-
-        } else if (id == R.id.events) {
-            Log.i("kuch bhi","kuch bh");
         } else if (id == R.id.placements) {
 
 
+
         } else if (id == R.id.societies) {
+
 
         } else if (id == R.id.submit_post) {
 

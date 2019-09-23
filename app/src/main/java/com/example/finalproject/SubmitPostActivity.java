@@ -121,7 +121,10 @@ public class SubmitPostActivity extends AppCompatActivity {
 
                            String title = PostTitle.getText().toString();
                            String desc = PostDescription.getText().toString();
-                           PostInfo obj = new PostInfo(title,desc,downloadUrl.toString());
+                           Long tsLong = System.currentTimeMillis()/1000;
+                           //String ts = tsLong.toString();
+
+                           PostInfo obj = new PostInfo(title,desc,downloadUrl.toString(),tsLong);
 
                            userInfoRefernce.push().setValue(obj).addOnCompleteListener(new OnCompleteListener<Void>() {
                                @Override
@@ -186,7 +189,7 @@ public class SubmitPostActivity extends AppCompatActivity {
         Long tsLong = System.currentTimeMillis()/1000;
         String ts = tsLong.toString();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Post").child(user.getUid());
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("Post").child("CodingClub");
         storageReference = FirebaseStorage.getInstance().getReference().child("Post").child(user.getUid()+ts);
         userInfoRefernce = FirebaseDatabase.getInstance().getReference().child("UserInfo").child(user.getUid()).child("Post");
 

@@ -4,12 +4,19 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="FinalProject"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@mipmap/appicon"
+        android:label="RunTimeTerror"
+        android:roundIcon="@mipmap/appicon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SetNameActivity"></activity>
+        <activity android:name=".PlacementInput"></activity>
+        <activity android:name=".clubpage" />
+        <activity android:name=".FeedbackActivity" />
+        <activity android:name=".ClubActivity" />
+        <activity android:name=".PlacementActivity" />
+        <activity android:name=".ArticleActivity" />
+        <activity android:name=".ArticlePage" />
+        <activity android:name=".SetNameActivity" />
         <activity android:name=".SubmitPostActivity" />
         <activity android:name=".HomePageActivity" />
         <activity android:name=".ProfileActivity" />
@@ -24,9 +31,9 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

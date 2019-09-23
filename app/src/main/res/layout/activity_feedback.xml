@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="5dp"
+    android:background="@drawable/background"
+    android:orientation="vertical"
+    tools:context=".FeedbackActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?colorPrimary" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <EditText
+        android:id="@+id/title_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:ems="10"
+        android:hint="Title"
+        android:alpha="0.5"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/borders"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textColor="@color/blackTextColor"
+        android:textColorHint="@color/blackTextColor"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/desc_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="243dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/borders"
+        android:alpha="0.6"
+        android:ems="10"
+        android:gravity="start"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:text="Name" />
+
+    <Button
+        android:id="@+id/submit_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+
+        android:text="SUBMIT" />
+
+
+
+
+</LinearLayout>

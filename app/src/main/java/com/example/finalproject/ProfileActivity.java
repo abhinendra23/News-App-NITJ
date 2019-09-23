@@ -15,7 +15,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -84,6 +86,8 @@ public class ProfileActivity extends AppCompatActivity {
     ImageView User_ProfilePic, ChangeProfilePic, ChangeName, ChangePassowrd, Savechanges,SaveName,SavePassword;
     TextView Name, Email, Back_to_Home,  User_email, SignOut;
     EditText User_name, User_password;
+
+    Button DeleteAccount;
 
 
     DatabaseReference databaseReference;
@@ -253,6 +257,11 @@ public class ProfileActivity extends AppCompatActivity {
                 url = dataSnapshot.child("profile_pic_url").getValue().toString();
                 Picasso.get().load(url).transform(new CircleTransform()).into(User_ProfilePic);
 
+                String name=dataSnapshot.child("name").getValue().toString();
+                Name.setText(name);
+                User_name.setText(name);
+
+
 
             }
 
@@ -261,6 +270,9 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         });
+
+
+
 
         ChangeProfilePic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -299,7 +311,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                EditText editText = findViewById(R.id.User_name);
+                final EditText editText = findViewById(R.id.User_name);
                 editText.setFocusableInTouchMode(true);
                 editText.setInputType(1);
                 ImageView editname = (ImageView) findViewById(R.id.ChangeName);
@@ -308,6 +320,9 @@ public class ProfileActivity extends AppCompatActivity {
                 editText.setHint("Enter name");
                 ImageView setnamebutton = (ImageView) findViewById(R.id.SaveName);
                 setnamebutton.setVisibility(View.VISIBLE);
+
+
+
 
             }
         });
@@ -325,6 +340,8 @@ public class ProfileActivity extends AppCompatActivity {
                 password.setHint("Enter new password");
                 ImageView setpasswordbutton = (ImageView) findViewById(R.id.SavePasssword);
                 setpasswordbutton.setVisibility(View.VISIBLE);
+
+
             }
         });
 
@@ -335,9 +352,31 @@ public class ProfileActivity extends AppCompatActivity {
                 editname.setVisibility(View.VISIBLE);
                 ImageView setnamebutton = (ImageView) findViewById(R.id.SaveName);
                 setnamebutton.setVisibility(View.INVISIBLE);
-                EditText editText = findViewById(R.id.User_name);
+                final EditText editText = (EditText) findViewById(R.id.User_name);
                 editText.setInputType(0);
                 editText.setFocusableInTouchMode(false);
+
+
+                final String name=editText.getText().toString();
+
+                databaseReference.child("name").setValue(name).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful())
+                        {
+                            Log.i("check","name uploded to db successfully");
+                            editText.setText(name);
+                            Name.setText(name);
+                        }
+                        else
+                        {
+                            Log.i("check","can't uploded to db ");
+
+                        }
+
+                    }
+                });
+
             }
         });
 
@@ -349,10 +388,41 @@ public class ProfileActivity extends AppCompatActivity {
                 editpassword.setVisibility(View.VISIBLE);
                 ImageView setpasswordbutton = (ImageView) findViewById(R.id.SavePasssword);
                 setpasswordbutton.setVisibility(View.INVISIBLE);
-                EditText password = findViewById(R.id.User_Password);
+                final EditText password = (EditText) findViewById(R.id.User_Password);
                 password.setInputType(0);
-                password.setText("********");
+
                 password.setFocusableInTouchMode(false);
+
+
+                final String pass=password.getText().toString();
+                if(pass.length()<6)
+                {
+                    Toast.makeText(ProfileActivity.this, "Password length cannot be less than 6", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    databaseReference.child("password").setValue(pass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+
+                                user.updatePassword(pass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful())
+                                        {
+                                            Toast.makeText(ProfileActivity.this, "Password updated successfully", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                                password.setText("********");
+                            } else {
+                                Log.i("check", "can't uploded password to db ");
+
+                            }
+
+                        }
+                    });
+                }
             }
         });
 

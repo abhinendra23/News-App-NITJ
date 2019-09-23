@@ -128,7 +128,12 @@ public class LoginPageActivity extends AppCompatActivity {
                                 String name = "xyz";
                                 String id = user.getEmail();
                                 String password =pass.getText().toString();
-                                final UserInfo obj = new UserInfo(name,password,id);
+
+                                long tsLong = System.currentTimeMillis()/1000;
+                                //String ts = tsLong.toString();
+                                //long timestamp=tsLong;
+
+                                final UserInfo obj = new UserInfo(name,password,id,tsLong);
 
                                 dataRefer = rootReference.child("UserInfo");
 

@@ -7,18 +7,10 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/articles"
-            android:orderInCategory="100"
             android:icon="@drawable/ic_assignment_black_24dp"
-
             android:title="Articles" />
-        <item
-            android:id="@+id/circulars"
-            android:icon="@drawable/ic_stars_black_24dp"
-            android:title="Circulars" />
-        <item
-            android:id="@+id/events"
-            android:icon="@drawable/ic_insert_invitation_black_24dp"
-            android:title="Events" />
+
+
         <item
             android:id="@+id/placements"
             android:icon="@drawable/ic_business_center_black_24dp"
