@@ -33,6 +33,7 @@
         android:id="@+id/Navigation_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="anonymous@mail.com" />
+        android:text="bla bla bla" />
+
 
 </LinearLayout>
